@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Content</title>
+    <style>
+
+        /* Main Content Styling */
+
+    h2 {
+        color: #333;
+        margin-bottom: 1rem;
+        padding:10px;
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        margin-bottom: 1rem;
+    }
+
+    main {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+      
+    /* iframe styles */
+
+    .iframe-container {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        margin: 2rem 0;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .iframe-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .map-buttons {
+        position:relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .iframe-controls {
+        position:relative;
+        padding:10px;
+        z-index: 10;
+    }
+
+/* Responsive adjustments */
+
+    @media (max-width: 768px) {
+    .iframe-container {
+        padding-bottom: 75%; /* Adjust aspect ratio for mobile */
+    }
+    }
+
+
+        /* Footer Styling */
+
+    .footer {
+        position:relative;
+        bottom:0;
+        left:0;
+        width:100vw;
+        text-align: center;
+        padding: 2rem;
+        background-color: #333;
+        color: white;
+        margin-top: 2rem;
+    }
+
+    .footer-section {
+        margin:0;
+        padding:5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footer ul {
+        margin:0;
+        padding:0;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .footer a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: smaller;
+        color: #f4f4f4;
+        transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+        color: #ffd700;
+    }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h2>Our Location</h2>
+    </header>
+
+    <!-- Main Content -->
+
+    <main>
+        <aside>
+            <h3>Map</h3>
+        </aside>
+
+        <section class="iframe-container"> 
+            <iframe 
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB2NIWI3Tv9iDPrlnowr_0ZqZWoAQydKJU&q=University%20of%20Warwick%2C%20Coventry%2C%20UK&maptype=roadmap"
+                title="Google Maps Location"
+                width="600"
+                height="450"
+                loading="lazy"
+                allowfullscreen=""
+                referrerpolicy="no-referrer-when-downgrade"
+                sandbox="allow-scripts allow-same-origin allow-popups">
+            <p>Your browser does not support iframes. Please visit our <a href="location-link">location page</a>.</p>></iframe>
+        </section>
+
+        <section class="map-buttons">
+            <div class="iframe-controls">
+                <button onclick="reloadFrame()">Reload Content</button>
+                <button onclick="toggleFullscreen()">Fullscreen</button>
+            </div>
+
+            <script>
+            function reloadFrame() {
+                const frame = document.querySelector('iframe');
+                frame.src = frame.src;
+            }
+
+            function toggleFullscreen() {
+                const frame = document.querySelector('iframe');
+                if (frame.requestFullscreen) {
+                    frame.requestFullscreen();
+                }
+            }
+            </script>
+        </section>
+
+    </main>
+
+    Footer
+
+    <footer class="footer">
+        <section class="footer-section">
+            <p>&copy; 2024 My Website</p>
+            <ul>
+                <li><a href="https://www.linkedin.com/in/jamie-tomlinson1" target="_blank">LinkedIn Profile</a></li>
+            </ul>
+        </section>
+       
+    </footer>   
+  
+
+        
+</body>
+</html>
