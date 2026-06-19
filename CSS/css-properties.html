@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Common CSS properties and values</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
@@ -109,26 +110,157 @@
         </div>
 
         <section style="width:100%; height:50px;">
-                <div style=" background-color: blueviolet;
-                    border: 3px solid blue; width:50%; height:100%;">
-                </div>
-                <h3>width:50%; height:100%;</h3>
+            <div style=" background-color: blueviolet;
+                border: 3px solid blue; width:50%; height:100%;">
+            </div>
+            <h3>width:50%; height:100%;</h3>
         </section>
 
-         <section style="width:100%; height:50px;">
-                <div style=" margin-top:60px; background-color: blueviolet;
-                    border: 3px solid blue; width:5cm; height:5cm;">
-                </div>
-                <h3>width:5cm; height:5cm;</h3>
+        <section style="width:100%; height:50px;">
+            <div style=" margin-top:60px; background-color: blueviolet;
+                border: 3px solid blue; width:5cm; height:5cm;">
+            </div>
+            <h3>width:5cm; height:5cm;</h3>
         </section>
         
-         <section style="margin-top:250px;">
-                <div style=" margin-top:60px; background-color: blueviolet;
-                    border: 3px solid blue; max-width:500px; height:50px;">
-                </div>
-                <h3>max-width:500px; height:50px;</h3>
+        <section style="margin-top:250px;">
+            <div style=" margin-top:60px; background-color: blueviolet;
+                border: 3px solid blue; max-width:500px; height:50px;">
+            </div>
+            <h3>max-width:500px; height:50px;</h3>
         </section>
+        <br>
 
-            
+        <h2>Text formatting</h2>
+        <section class="sub-sections">
+            <div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum tristique pretium. 
+                Proin sed mattis nibh. Morbi id turpis semper, aliquam nisl egestas, semper justo. Sed id tempus est. 
+                Aliquam bibendum ipsum orci. Praesent ultrices congue vehicula. Duis pulvinar mauris odio, 
+                non faucibus nunc viverra a. Curabitur facilisis placerat felis vitae sodales. Phasellus sapien risus, 
+                accumsan id iaculis et, pretium ac ante.</p>
+                <h3>text-align:left</h3>
+            </div>
 
+            <div>
+               <p class="align-right">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum tristique pretium. 
+                Proin sed mattis nibh. Morbi id turpis semper, aliquam nisl egestas, semper justo. Sed id tempus est. 
+                Aliquam bibendum ipsum orci. Praesent ultrices congue vehicula. Duis pulvinar mauris odio, 
+                non faucibus nunc viverra a. Curabitur facilisis placerat felis vitae sodales. Phasellus sapien risus, 
+                accumsan id iaculis et, pretium ac ante.</p>
+                <h3>text-align:right</h3>
+            </div>
+
+            <div>
+                <p class="align-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum tristique pretium. 
+                Proin sed mattis nibh. Morbi id turpis semper, aliquam nisl egestas, semper justo. Sed id tempus est. 
+                Aliquam bibendum ipsum orci. Praesent ultrices congue vehicula. Duis pulvinar mauris odio, 
+                non faucibus nunc viverra a. Curabitur facilisis placerat felis vitae sodales. Phasellus sapien risus, 
+                accumsan id iaculis et, pretium ac ante.</p>
+                <h3>text-align:center</h3>
+            </div>
+
+             <div>
+                <p class="align-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum tristique pretium. 
+                Proin sed mattis nibh. Morbi id turpis semper, aliquam nisl egestas, semper justo. Sed id tempus est. 
+                Aliquam bibendum ipsum orci. Praesent ultrices congue vehicula. Duis pulvinar mauris odio, 
+                non faucibus nunc viverra a. Curabitur facilisis placerat felis vitae sodales. Phasellus sapien risus, 
+                accumsan id iaculis et, pretium ac ante.</p>
+                <h3>text-align:justify</h3>
+            </div>
+
+        </section>
+        <br>
+        <br>
+        <section class="sub-sections">
+            <div>
+                <p><span style="text-decoration: underline solid green 3px;">Green underline, 3px</span></p>
+            </div>
+
+            <div>
+               <p><span style="text-decoration: underline dashed rgb(0, 4, 128) 5px;">Blue dashed underline, 5px
+               </span></p>
+            </div>
+
+            <div>
+                <p><span style="text-transform: capitalize;">this text has been capitilised</span></p>
+            </div>
+
+             <div>
+                <p><span style="text-indent: 40px;">This text has been indented by 40px</span></p> 
+            </div>
+
+             <div>
+                <p><span style="line-height: 2">ipsum dolor sit amet, consectetur adipiscing elit. In condimentum tristique pretium. 
+                    Proin sed mattis nibh. Morbi id turpis semper, aliquam nisl egestas, semper justo. 
+                    Sed id tempus est. Aliquam bibendum ipsum orci. Praesent ultrices congue vehicula. 
+                    Duis pulvinar mauris odio, non faucibus nunc viverra a. Curabitur facilisis placerat felis
+                     vitae sodales. Phasellus sapien risus, accumsan id iaculis et, pretium ac ante.</span></p>
+                    <h3>Line height 2</h3> 
+            </div>
+
+        </section>
+        <br>
+        <br>
+        <section class="sub-sections">
+            <div>
+                <p><span style="letter-spacing: 2px;">ipsum dolor sit amet, consectetur adipiscing elit.
+                </span></p>
+                <h3>2px letter spacing</h3>
+            </div>
+
+            <div>
+            <p><span style="word-spacing: 5px;">ipsum dolor sit amet, consectetur adipiscing elit.
+            </span></p>
+            <h3>5px word spacing</h3>
+            </div>
+
+            <div>
+                <p><span style="text-shadow: 5px 5px grey;">text shadow</span></p>
+            </div>
+
+            <div>
+                <p><span style="text-shadow: 5px 5px 5px grey;">text shadow with blur property</span></p> 
+            </div>
+        </section>
+        <br>
+        <br>
+        <section class="sub-sections">
+            <div>
+                <p><span style="font-style: italic;">italicised text
+                </span></p>
+            </div>
+
+            <div>
+            <p><span style="font-weight: 700;">font weight 700
+            </span></p>
+            </div>
+
+            <div>
+                <p><span style="font: italic small-caps bold 16px/2 cursive;">using font shorthand</span></p>
+            </div>
+        </section>
+        <br>
+        <br>
+
+        <h2>CSS links</h2>
+        <section class="sub-sections">
+            <div>
+                <a href="#default">Default link styling</a>
+                <button class="button-3" role="button">Button style from online resource</button>
+            </div>
+
+            <div class="no-underline">
+                <a href="#default">remove underline with text-decoration:none</a>
+            </div>
+
+            <div class="hover-link">
+                <a href="#default">hover effect using hover pseudo-class</a>
+            </div>
+
+            <div class="click-link">
+                <a href="#default">click effect using active pseudo-class</a>
+            </div>
+        </section>
+    </section>
 </body>
