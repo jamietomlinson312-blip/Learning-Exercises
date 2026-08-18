@@ -1,4 +1,5 @@
 /*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -9,6 +10,8 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-green-600: oklch(62.7% 0.194 149.214);
+    --color-cyan-50: oklch(98.4% 0.019 200.873);
+    --color-cyan-500: oklch(71.5% 0.143 215.221);
     --color-indigo-50: oklch(96.2% 0.018 272.314);
     --color-slate-100: oklch(96.8% 0.007 247.896);
     --color-slate-200: oklch(92.9% 0.013 255.508);
@@ -43,6 +46,7 @@
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
+    --font-IBMPlexSans: "IBM Plex Sans", sans-serif;
   }
 }
 @layer base {
@@ -251,6 +255,9 @@
   .flex {
     display: flex;
   }
+  .grid {
+    display: grid;
+  }
   .h-screen {
     height: 100vh;
   }
@@ -266,17 +273,26 @@
   .max-w-9\/10 {
     max-width: calc(9 / 10 * 100%);
   }
+  .max-w-full {
+    max-width: 100%;
+  }
   .flex-none {
     flex: none;
   }
   .columns-2 {
     columns: 2;
   }
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .flex-col {
     flex-direction: column;
   }
   .items-center {
     align-items: center;
+  }
+  .items-start {
+    align-items: flex-start;
   }
   .justify-around {
     justify-content: space-around;
@@ -289,6 +305,9 @@
   }
   .gap-5 {
     gap: calc(var(--spacing) * 5);
+  }
+  .gap-10 {
+    gap: calc(var(--spacing) * 10);
   }
   :where(.space-y-4 > :not(:last-child)) {
     --tw-space-y-reverse: 0;
@@ -321,6 +340,9 @@
   }
   .border-slate-500 {
     border-color: var(--color-slate-500);
+  }
+  .bg-cyan-500 {
+    background-color: var(--color-cyan-500);
   }
   .bg-gray-100 {
     background-color: var(--color-gray-100);
@@ -373,14 +395,17 @@
   .p-5 {
     padding: calc(var(--spacing) * 5);
   }
+  .p-10 {
+    padding: calc(var(--spacing) * 10);
+  }
   .text-center {
     text-align: center;
   }
+  .font-IBMPlexSans {
+    font-family: var(--font-IBMPlexSans);
+  }
   .font-mono {
     font-family: var(--font-mono);
-  }
-  .font-sans {
-    font-family: var(--font-sans);
   }
   .text-3xl {
     font-size: var(--text-3xl);
@@ -405,6 +430,9 @@
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
+  }
+  .text-cyan-50 {
+    color: var(--color-cyan-50);
   }
   .text-olive-50 {
     color: var(--color-olive-50);
