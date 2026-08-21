@@ -99,3 +99,24 @@ for (let i = 0; i < inst.length; i++) { // Looping through an array and printing
    console.log(inst[i]);
 }
 
+// Manipulating Classes
+
+window.onload = addElement();
+function addElement() {
+   console.log("button clicked")
+   const newSection = document.createElement("section"); // creates a new section HTML element
+   const newContent = document.createTextNode("This is a new section added on window load"); // text for new section
+   newSection.appendChild(newContent); // append the text node to the new section node
+   console.log(newSection);
+   const currentSection = document.getElementById("new-section");
+   currentSection.insertAdjacentElement("afterend", newSection);
+};
+
+//using setAttribute to change the heading colour 
+
+const colButton = document.querySelector("#colour-button");
+colButton.addEventListener("click", function(){ // adding click event listener
+   document.querySelector("#manipulate").setAttribute("style", "color:red");
+});
+
+   
