@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Applications</title>
+    <link rel="stylesheet" href="/src/output.css">
+</head>
+<body>
+    <h1 class="p-4 text-center text-3xl font-bold">Activity - Using the Math object to calculate mean values</h1>
+    <section class="p-10 max-w-1/2 mx-auto flex flex-col gap-4 justify-center shadow-md rounded-md">
+        <div class="flex gap-4 items-center">
+            <label for="number" class="text-base">Enter value</label>
+            <input type="number" id="number" name="number" class="border-1">
+            <button id="number-button" class="p-1 text-sm font-bold bg-cyan-200 rounded-md shadow-md transition ease-in-out duration 150
+            hover:bg-cyan-400">Select number</button>
+        </div>
+       <div flex flex-col gap-4>
+            <h3 class="text-xl font-bold mb-4" >Current selection:</h3>
+            <div id="current-nums">
+            </div>
+        </div>
+    </section>
+<script src="script.js"></script>
+</body>
+</html>
