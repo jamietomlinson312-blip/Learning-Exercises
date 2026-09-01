@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/output.css">
+    <title>Array Manipulation</title>
+</head>
+<body class="font-IBMPlexSans">
+    <header>
+        <h1 class="p-4 text-2xl font-bold text-center">Manipulating Arrays in JavaScript</h1>
+    </header>
+    <section class="p-4 mt-10 flex flex-col gap-4 items-center max-w-1/2 mx-auto">
+        <h2 class="text-xl font-bold">Display container</h2>
+        <div id ="display" class="">
+
+        </div>
+    </section>
+    <section class="flex flex-col gap-4">
+        <div class="p-4 mt-10 flex flex-col gap-4 items-center max-w-3/4 mx-auto shadow-md rounded-md">
+            <div>
+                <label for="add-Element">New element:</label>
+                <input type="text" id="add-Element" name="add" class="p-1 border-1 rounded-md">
+            </div>
+            <div class="flex gap-2">
+                <button id="add_button" class="text-sm bg-cyan-200 rounded-md p-1 shadow-md transition ease-in-out delay-100 duration-150
+                hover:bg-cyan-400">add</button>
+                <button id="rmv_button" class="text-sm bg-cyan-200 rounded-md p-1 shadow-md transition ease-in-out delay-100 duration-150
+                hover:bg-cyan-400">remove last</button>
+                <button id="shift_button" class="text-sm bg-cyan-200 rounded-md p-1 shadow-md transition ease-in-out delay-100 duration-150
+                hover:bg-cyan-400">remove first</button>
+                <button id="unshift_button" class="text-sm bg-cyan-200 rounded-md p-1 shadow-md transition ease-in-out delay-100 duration-150
+                hover:bg-cyan-400">add first</button>
+                <button id="splice_button" class="text-sm bg-cyan-200 rounded-md p-1 shadow-md transition ease-in-out delay-100 duration-150
+                hover:bg-cyan-400">splice</button>
+            </div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
