@@ -54,3 +54,25 @@ export function StyledButton() {
         </div>   
     )
 }
+
+export function JobCounter() {
+    let jobCount = 0;
+    const addJob = () => {
+        jobCount++;
+        console.log(jobCount); // Calling addJob logs the jobCount variable to the console, but doesn't update the display - need State variables for this
+    }
+    return (
+        <div className = "job-board" style = {{marginTop:"10px", marginBottom: "10px"}}> 
+        <h2>Interactive Job Counter with Events</h2>
+        <p>Current jobs: {jobCount}</p>
+        <button onClick={addJob}>Add a job</button> 
+        <h2>Styling in React - learning outcomes</h2>
+            <ul>
+                <li>Practice creating a React component with interactive elements</li>
+                <li>Understand how to handle click events in React</li>
+                <li>Recognize the limitations of using regular variables for dynamic content</li>
+                <li>Begin to understand the need for state in React applications</li>
+            </ul>
+        </div>
+    )
+}
