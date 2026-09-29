@@ -65,7 +65,7 @@ export function JobCounter() {
         <div className = "job-board" style = {{marginTop:"10px", marginBottom: "10px"}}> 
         <h2>Interactive Job Counter with Events</h2>
         <p>Current jobs: {jobCount}</p>
-        <button onClick={addJob}>Add a job</button> 
+        <button onClick={addJob} className = "button">Add a job</button> 
         <h2>Styling in React - learning outcomes</h2>
             <ul>
                 <li>Practice creating a React component with interactive elements</li>
@@ -73,6 +73,62 @@ export function JobCounter() {
                 <li>Recognize the limitations of using regular variables for dynamic content</li>
                 <li>Begin to understand the need for state in React applications</li>
             </ul>
+        </div>
+    )
+}
+
+export function AdvancedJobCounter() {
+
+     function checkCondition(){
+        if (currentJobs > 5){
+            checkJobs("Many jobs available");
+       } else if (currentJobs <= 5 && currentJobs > 0){
+        checkJobs("Few jobs available");
+       } else if (currentJobs === 0){
+        checkJobs("No jobs available")
+       }
+    }
+
+    function incrementJobs(){
+        alterJob(currentJobs => currentJobs + 1);
+        console.log(currentJobs, msg)
+        }
+       
+
+    function removeJobs(){
+        alterJob(currentJobs => {
+            if (currentJobs >= 1){
+                return currentJobs - 1;
+            } else return currentJobs
+        }
+        )
+        
+    }
+
+    function resetJobs(){
+        alterJob(0)
+       
+    }
+
+    let [currentJobs, alterJob] = useState(0);
+    let [msg, checkJobs] = useState("No jobs available");
+
+    return (
+        <div className = "job-board" style = {{marginTop:"10px", marginBottom: "10px"}}> 
+            <p>Current Jobs: {currentJobs}</p>
+            
+            <div style = {{display:"flex", gap:"10px"}}>
+                <button onClick = {() => {
+                    incrementJobs()
+                    }} className="button">Add Jobs</button>
+                <button onClick = {() => {
+                    removeJobs()
+                    }} className="button">Remove Jobs</button>
+                <button onClick = {() => {
+                    resetJobs()
+                    }} className="button">Reset Counter</button>
+            </div>
+            <p>{msg}</p>
         </div>
     )
 }
