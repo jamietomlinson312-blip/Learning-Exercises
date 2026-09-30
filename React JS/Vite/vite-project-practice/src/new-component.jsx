@@ -185,16 +185,47 @@ export function BotListManager() {
     setBots(
       bots.map((bot) => {
         if (bot.id === id) {
-          bot.status = "Running";
-          bot.isRunningClass = "text-green-700";
-          console.log(bot);
+          bot.status = "Running"; // reassigning "status" property
           return bot;
-        } else if (bot.isRunningClass === "text-green-700") {
-          return bot;
-        } else {
-          bot.isRunningClass = "text-red-700";
-          return bot;
+        } else return bot; // if id doesn't match, returns the unmodified bot object
+      }),
+    );
+  };
+
+  function handleDelete(id) {
+    setBots(bots.filter((bot) => id !== bot.id)); // filter out bot objects based on id
+  }
+
+  const [newBot, setNewBot] = useState({
+    // initialise blank bot object
+    id: "",
+    name: "",
+    status: "",
+    task: "",
+  });
+
+  const addBot = () => {
+    if (
+      newBot.id.trim() !== "" && // conditional logic to make sure all fields are filled
+      newBot.name !== "" &&
+      newBot.status !== "" &&
+      newBot.task !== ""
+    ) {
+      setBots([...bots, newBot]);
+      setNewBot({ id: "", name: "", status: "", task: "" }); // inputs captured by onChange event attached to the input forms
+    }
+  };
+
+  const editBot = (id) => {
+    setBots(
+      bots.map((bot) => {
+        if (bot.id === id) {
+          bot.name = prompt("Enter new Name").trim(); // if ID matches, prompts users for new values and reassigns bot properties
+          bot.status = prompt("Enter new Status").trim();
+          bot.task = prompt("Enter new Task").trim();
+          console.log(bot.name, bot.status, bot.task);
         }
+        return bot;
       }),
     );
   };
@@ -205,7 +236,12 @@ export function BotListManager() {
         <h1 className="underline text-2xl font-bold">Bot List Manager</h1>
         <ul className="list-disc flex flex-col gap-5 items-start">
           {bots.map((bot) => (
-            <li className={bot.isRunningClass} key={bot.id}>
+            <li
+              className={
+                bot.status === "Running" ? "text-green-700" : "text-red-700" // conditional rendering - green for running, red for stopped
+              }
+              key={bot.id}
+            >
               <span style={{ fontWeight: "700" }}>ID:</span>
               {bot.id}
               {"      "}
@@ -216,17 +252,77 @@ export function BotListManager() {
               <span style={{ fontWeight: "700" }}>Task:</span>
               {bot.task}
               {"      "}
-              <button
-                style={{ color: "black" }}
-                id={bot.id}
-                onClick={() => triggerJob(bot.id)}
-                className="ml-10 text-xs bg-slate-200 py-1 px-2 rounded-md"
-              >
-                Trigger Job
-              </button>
+              <div className="mt-4 flex justify-start gap-2">
+                <button
+                  style={{ color: "black" }}
+                  onClick={() => triggerJob(bot.id)}
+                  className="ml-10 text-xs bg-slate-200 py-1 px-2 rounded-md"
+                >
+                  Trigger Job
+                </button>
+                <button
+                  style={{ color: "black" }}
+                  onClick={() => handleDelete(bot.id)}
+                  className="ml-10 text-xs bg-slate-200 py-1 px-2 rounded-md"
+                >
+                  Delete Job
+                </button>
+                <button
+                  style={{ color: "black" }}
+                  onClick={() => editBot(bot.id)}
+                  className="ml-10 text-xs bg-slate-200 py-1 px-2 rounded-md"
+                >
+                  Edit Job
+                </button>
+              </div>
             </li>
           ))}
         </ul>
+
+        <form className="w-9/10 flex flex-col gap-4 justify-around items-start">
+          <input
+            id="ID"
+            type="text"
+            required
+            value={newBot.id}
+            className="border-1 p-1 shadow-md"
+            placeholder="Enter ID"
+            onChange={(e) => setNewBot({ ...newBot, id: e.target.value })}
+          ></input>
+          <input
+            id="name"
+            type="text"
+            required
+            value={newBot.name}
+            className="border-1 p-1 shadow-md"
+            placeholder="Enter Name"
+            onChange={(e) => setNewBot({ ...newBot, name: e.target.value })}
+          ></input>
+          <input
+            id="status"
+            type="text"
+            required
+            value={newBot.status}
+            className="border-1 p-1 shadow-md"
+            placeholder="Enter Status"
+            onChange={(e) => setNewBot({ ...newBot, status: e.target.value })}
+          ></input>
+          <input
+            id="task"
+            type="text"
+            required
+            value={newBot.task}
+            className="border-1 p-1 shadow-md"
+            placeholder="Enter Task"
+            onChange={(e) => setNewBot({ ...newBot, task: e.target.value })}
+          ></input>
+          <button
+            className="ml-10 text-xs bg-slate-200 py-1 px-2 rounded-md"
+            onClick={addBot}
+          >
+            Add New Bot
+          </button>
+        </form>
 
         <div className="mb-20 p-10 shadow-md rounded-md flex flex-col">
           <p className="font-bold text-xl">Learning Outcomes:</p>
@@ -235,9 +331,12 @@ export function BotListManager() {
               Using useState with more complex data structures (arrays of
               objects)
             </li>
-            <li>Mapping over arrays to render dynamic content.</li>
             <li>
-              Handling events and updating state based on user interactions.
+              Mapping and filtering over arrays to render dynamic content.
+            </li>
+            <li>
+              Handling forms, events and updating state based on user
+              interactions.
             </li>
             <li>Conditional rendering and styling.</li>
             <li>Working with lists and keys in React</li>
