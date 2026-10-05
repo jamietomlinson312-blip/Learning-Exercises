@@ -2,42 +2,54 @@ import React, { useState } from "react";
 import JobItem from "./JobItem";
 import { AddJob } from "./AddJob";
 
-export const JobList = ({ jobs }) => {
+export const JobList = ({ jobs, deleteJob, editJobs }) => {
   let [show, setShow] = useState(true); // State for toggling display
 
   return (
     <>
-      <ul className="max-w-1/2 mx-auto flex flex-col items-center list-disc p-4 mt-10 bg-slate-50 shadow-md">
-        <h2 className="mb-4 text-xl font-bold underline">Job List</h2>
-        <button
-          className="flex justify-center gap-2 items-center mx-auto mb-4 shadow-xl text-sm bg-gray-50 backdrop-blur-md 
-        lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 
-        before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-emerald-500 hover:text-gray-500 
-        before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 
-        overflow-hidden border-2 rounded-full group"
-          onClick={() => {
-            setShow(!show);
-          }}
-        >
-          Toggle Job List
-        </button>
-        {show &&
-          jobs.map((job) => {
-            // Map through jobs and render JobItem components (passing each job object as a prop)
-            return (
-              <div className="max-w-1/2 flex items-center gap-4">
+      <div className="flex flex-col items-center justify-between">
+        <ul className="w-full flex flex-col items-start list-disc p-4 mt-10 bg-slate-50 shadow-md">
+          <h2 className="mb-4 text-xl font-bold underline">Job List</h2>
+          <button
+            className="flex justify-center gap-2 items-center mx-auto mb-1 px-3 py-2 border-1 shadow-xl text-sm bg-gray-50"
+            onClick={() => {
+              setShow(!show);
+            }}
+          >
+            Toggle Job List
+          </button>
+          {show &&
+            jobs.map((job) => {
+              // Map through jobs and render JobItem components (passing each job object as a prop)
+              return (
                 <li
                   key={job.id}
                   className={
-                    job.status === "running" ? "text-green-700" : "text-red-700" // Conditional rendering
+                    job.status === "running"
+                      ? "text-green-700 p-4"
+                      : "text-red-700 p-4" // Conditional rendering
                   }
                 >
                   <JobItem job={job} />
+                  <div>
+                    <button
+                      onClick={() => deleteJob(job.id)} // calling the 'deleteJob' prop
+                      className="text-slate-800 text-xs mt-2 ml-4 px-2 py-1 bg-slate-100 border-1 rounded-sm"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      onClick={() => editJobs(job.id)} // calling the 'editJobs' prop
+                      className="text-slate-800 text-xs mt-2 ml-4 px-2 py-1 bg-slate-100 border-1 rounded-sm"
+                    >
+                      Edit
+                    </button>
+                  </div>
                 </li>
-              </div>
-            );
-          })}
-      </ul>
+              );
+            })}
+        </ul>
+      </div>
     </>
   );
 };

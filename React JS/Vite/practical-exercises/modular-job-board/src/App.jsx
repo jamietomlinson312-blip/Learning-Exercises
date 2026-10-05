@@ -30,11 +30,36 @@ function App() {
       setNewJob({ id: "", name: "", status: "" });
     }
   };
+
+  const deleteJob = (id) => {
+    console.log("delete clicked", id);
+    setJobs(currentJobs.filter((job) => id != job.id));
+  };
+
+  const editJob = (id) => {
+    console.log("edit...", id);
+    setJobs(
+      currentJobs.map((job) => {
+        if (job.id === id) {
+          job.name = prompt("Enter new Name").trim(); // if ID matches, prompts users for new values and reassigns bot properties
+          job.status = prompt("Enter new Status").trim();
+          return job;
+        } else return job;
+      }),
+    );
+    console.log(currentJobs);
+  };
   return (
     <>
-      <div className="font-inter bg-slate-100">
+      <div className="p-4 font-inter bg-slate-100">
         <Header />
-        <JobList jobs={currentJobs} />
+        <div className="">
+          <JobList
+            jobs={currentJobs}
+            deleteJob={deleteJob}
+            editJobs={editJob}
+          />
+        </div>
         <AddJob
           onClick={() => addJob()}
           onChangeID={(e) => setNewJob({ ...newJob, id: e.target.value })}
