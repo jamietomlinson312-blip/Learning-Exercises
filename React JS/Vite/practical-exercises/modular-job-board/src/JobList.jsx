@@ -34,13 +34,13 @@ export const JobList = ({ jobs, deleteJob, editJobs }) => {
                   <div>
                     <button
                       onClick={() => deleteJob(job.id)} // calling the 'deleteJob' prop
-                      className="text-slate-800 text-xs mt-2 ml-4 px-2 py-1 bg-slate-100 border-1 rounded-sm"
+                      className="px-3 py-2 mt-2 mb-2 ml-4 border-1 shadow-xl text-xs bg-gray-50 text-gray-700"
                     >
                       Delete
                     </button>
                     <button
                       onClick={() => editJobs(job.id)} // calling the 'editJobs' prop
-                      className="text-slate-800 text-xs mt-2 ml-4 px-2 py-1 bg-slate-100 border-1 rounded-sm"
+                      className="px-3 py-2 mt-2 mb-2 ml-4 border-1 shadow-xl text-xs bg-gray-50 text-gray-700"
                     >
                       Edit
                     </button>

@@ -3,7 +3,7 @@ import React from "react";
 export const Header = () => {
   return (
     <>
-      <header className="p-4 fixed w-screen flex justify-center z-50">
+      <header className="p-4 fixed top-0 left-0 w-screen flex justify-center z-50 bg-slate-100 border-b">
         <h1 className="text-3xl ">Practical Exercise - Modular Job Board</h1>
       </header>
       <div className="flex justify-center">

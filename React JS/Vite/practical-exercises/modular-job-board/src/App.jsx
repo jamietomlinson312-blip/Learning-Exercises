@@ -3,6 +3,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { JobList } from "./JobList";
 import { AddJob } from "./AddJob";
+import { StatusBoard } from "./StatusBoard";
 import "./App.css";
 
 function App() {
@@ -68,6 +69,8 @@ function App() {
             setNewJob({ ...newJob, status: e.target.value })
           }
         />
+        <StatusBoard />
+
         <Footer />
       </div>
     </>
