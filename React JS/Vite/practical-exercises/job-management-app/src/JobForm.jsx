@@ -1,38 +1,80 @@
 import React from "react";
 import { useState } from "react";
+import { FormButton } from "./FormButton";
 
-export const JobForm = ({ addJob }) => {
+export const JobForm = ({ setJob, jobs }) => {
   const [jobDetails, setJobDetails] = useState({
+    id: jobs.length + 1,
     title: "",
-    category: "Read Emails",
+    category: [],
     status: "To Start",
   });
 
   const categories = ["Read Emails", "Web Parsing", "Send Emails"];
   const statuses = ["To Start", "Running", "Completed"];
 
+  // event handler to set values for the jobDetails state variable
   const handleChange = (e) => {
-    // event handler to set values for the jobDetails state variable
-
     if (e.target.name === "title") {
       setJobDetails({ ...jobDetails, title: e.target.value });
-    } else if (e.target.name === "category") {
-      setJobDetails({ ...jobDetails, category: e.target.value });
     } else if (e.target.name === "status") {
       setJobDetails({ ...jobDetails, status: e.target.value });
     }
   };
 
   const handleSubmit = (e) => {
-    // event handler to submit jobDetails values and call the addJob function (to change state in App component)
+    // event handler to submit jobDetails values and call setJob
     e.preventDefault();
 
-    if (jobDetails.title !== "" && jobDetails.title.length > 3) {
+    if (
+      jobDetails.title !== "" &&
+      jobDetails.title.length > 3 &&
+      jobDetails.category.length > 0
+    ) {
       // only call addJob if title field is not empty
 
-      addJob({ jobDetails });
+      setJob([
+        // updates state in parent component (App)
+        ...jobs,
+        {
+          id: jobs.length + 1,
+          title: jobDetails.title,
+          status: jobDetails.status,
+          category: jobDetails.category,
+        },
+      ]);
       alert("Job Submitted Successfully");
-    } else alert("Title must be at least 4 characters long");
+      setJobDetails({
+        // reset the input fields
+        id: jobs.length + 1,
+        title: "",
+        category: [],
+        status: "To Start",
+      });
+    } else if (jobDetails.title.length <= 3) {
+      alert("Title must be at least 4 characters long");
+    } else if (jobDetails.category.length === 0) {
+      alert("Select at least one category");
+    }
+  };
+
+  const validateCategory = (targetValue) => {
+    return jobDetails.category.some((item) => item === targetValue); // if target value found in already selected categories, returns true
+  };
+
+  //event handler for category select buttons
+  const handleClick = (e) => {
+    if (jobDetails.category.some((item) => item === e)) {
+      // if button category is already selected, filters out of jobDetails.category array
+      const filtered = jobDetails.category.filter((item) => item !== e);
+      setJobDetails({ ...jobDetails, category: filtered });
+    } else {
+      setJobDetails({
+        // if button category not in jobDetails.category, it is added
+        ...jobDetails,
+        category: [...jobDetails.category, e], // spread syntax operator to keep original categories in the array
+      });
+    }
   };
 
   return (
@@ -47,30 +89,31 @@ export const JobForm = ({ addJob }) => {
           required
           placeholder="Enter Job Title"
           className="max-w-9/10 sm:w-6/10 px-2 py-1 border-1 bg-neutral-50 rounded-md"
-          defaultValue={jobDetails.title}
+          value={jobDetails.title}
           onChange={handleChange}
         />
         <div className="max-w-9/10 sm:w-6/10 mt-4 flex sm:flex-row flex-col gap-3 justify-between">
-          <select
-            className="flex gap-3"
-            name="category"
-            defaultValue={jobDetails.category}
-            onChange={handleChange}
-          >
+          <div className="flex gap-3">
             {categories.map(
               (
-                category, // mapping through categories array to render the dropdown list
+                category, // mapping through categories array to render the category buttons
               ) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
+                <>
+                  <FormButton
+                    currentCategories={jobDetails.category}
+                    title={category}
+                    clickHandler={handleClick}
+                    validate={validateCategory}
+                    value={category}
+                  />
+                </>
               ),
             )}
-          </select>
+          </div>
           <div className="flex gap-3">
             <select
               className="border-1 p-1 rounded-sm text-xs font-bold"
-              defaultValue={jobDetails.status}
+              value={jobDetails.status}
               name="status"
               onChange={handleChange}
             >

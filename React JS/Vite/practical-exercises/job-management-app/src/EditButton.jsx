@@ -1,11 +1,23 @@
 import { useState } from "react";
 import React from "react";
 
-export const EditButton = ({ id, editJob }) => {
+export const EditButton = ({ jobs, id, setJob }) => {
   let [status, setStatus] = useState("To Start");
 
-  const handleChange = (e) => {
-    setStatus(e.target.value); // getting the value from the dropdown
+  const handleChange = (e) => setStatus(e.target.value); // getting the value from the dropdown
+
+  const handleClick = () => {
+    setJob(
+      // updating state in App
+      jobs.map((job) => {
+        if (job.id === id) {
+          // maps through currentJobs and only updates job.status if job.id matches the id argument
+          job.status = status;
+          console.log(job);
+          return job;
+        } else return job;
+      }),
+    );
   };
 
   return (
@@ -20,9 +32,8 @@ export const EditButton = ({ id, editJob }) => {
       </select>
       <button
         type="submit"
-        onClick={() => {
-          editJob({ id, status }); // function passes the ID and selected status as arguments
-        }}
+        onClick={handleClick}
+        // function passes the ID and selected status as arguments
         className="bg-neutral-200 rounded-sm px-2 py-1 text-xs font-bold border-1 transition ease-in-out duration-100 delay-50 hover:bg-neutral-300"
       >
         Edit Job
