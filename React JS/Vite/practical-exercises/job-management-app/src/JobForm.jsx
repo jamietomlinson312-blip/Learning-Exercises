@@ -100,6 +100,7 @@ export const JobForm = ({ setJob, jobs }) => {
               ) => (
                 <>
                   <FormButton
+                    key={category}
                     currentCategories={jobDetails.category}
                     title={category}
                     clickHandler={handleClick}
