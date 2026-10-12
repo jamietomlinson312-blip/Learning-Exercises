@@ -11,7 +11,7 @@ export const JobColumn = (props) => {
       {props.jobs.map(
         (job) =>
           job.status === props.title && (
-            <li key={job.id} className="list-none font-light mt-3">
+            <li key={job.id} className="w-full list-none font-light mt-3">
               <JobItem
                 jobs={props.jobs}
                 id={job.id}

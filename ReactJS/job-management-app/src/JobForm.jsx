@@ -1,8 +1,7 @@
-import React from "react";
 import { useState } from "react";
 import { FormButton } from "./FormButton";
 
-export const JobForm = ({ setJob, jobs }) => {
+export const JobForm = ({ setJob, jobs, removeJobs }) => {
   const [jobDetails, setJobDetails] = useState({
     id: jobs.length + 1,
     title: "",
@@ -88,7 +87,7 @@ export const JobForm = ({ setJob, jobs }) => {
           type="text"
           required
           placeholder="Enter Job Title"
-          className="max-w-9/10 sm:w-6/10 px-2 py-1 border-1 bg-neutral-50 rounded-md"
+          className="max-w-9/10 sm:w-6/10 px-2 py-1 border bg-neutral-50 rounded-md"
           value={jobDetails.title}
           onChange={handleChange}
         />
@@ -98,22 +97,21 @@ export const JobForm = ({ setJob, jobs }) => {
               (
                 category, // mapping through categories array to render the category buttons
               ) => (
-                <>
+                <div key={category}>
                   <FormButton
-                    key={category}
                     currentCategories={jobDetails.category}
                     title={category}
                     clickHandler={handleClick}
                     validate={validateCategory}
                     value={category}
                   />
-                </>
+                </div>
               ),
             )}
           </div>
           <div className="flex gap-3">
             <select
-              className="border-1 p-1 rounded-sm text-xs font-bold"
+              className="border p-1 rounded-sm text-xs font-bold"
               value={jobDetails.status}
               name="status"
               onChange={handleChange}
@@ -126,9 +124,18 @@ export const JobForm = ({ setJob, jobs }) => {
             </select>
             <button
               type="submit"
-              className="bg-neutral-200 rounded-sm px-2 py-1 text-xs font-light border-1 transition ease-in-out duration-100 delay-50 hover:bg-neutral-300"
+              className="bg-neutral-200 rounded-sm px-2 py-1 text-xs font-light border transition ease-in-out duration-100 delay-50 hover:bg-neutral-300"
             >
               Add Job
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                removeJobs();
+              }}
+              className="bg-neutral-200 rounded-sm px-2 py-1 text-xs font-light border transition ease-in-out duration-100 delay-50 hover:bg-neutral-300"
+            >
+              Clear Jobs
             </button>
           </div>
         </div>
