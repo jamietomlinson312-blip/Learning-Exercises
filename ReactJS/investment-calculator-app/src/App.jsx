@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { InputForm } from "./components/InputForm";
+import { OutputData } from "./components/OutputData";
 
 import "./App.css";
 import { Header } from "./components/Header";
@@ -32,13 +33,14 @@ function App() {
 
   return (
     <>
-      <div className="font-inter w-8/10 mx-auto">
+      <div className="font-inter max-w-8/10 mx-auto">
         <Header />
         <InputForm
           handleChange={handleChange}
           userInput={userInput}
           reset={resetFields}
         />
+        <OutputData userInput={userInput} />
       </div>
     </>
   );

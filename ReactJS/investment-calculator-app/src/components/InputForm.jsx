@@ -4,7 +4,7 @@ export const InputForm = ({ handleChange, userInput, reset }) => {
   //console.log(userInput);
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="mt-30 w-full flex justify-center">
       <form className="p-10 flex items-baseline justify-between shadow-md rounded-b-md">
         <div className="flex flex-col gap-2 items-center">
           <label className="font-bold" htmlFor="initialInvestment">
