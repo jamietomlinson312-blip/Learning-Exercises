@@ -1,5 +1,4 @@
 export const OutputSummary = ({ outputData }) => {
-  console.log(outputData.slice(-1)[0].interest);
   return (
     <div className="flex flex-col max-w-1/2 mx-auto items-center p-5 mb-20 text-xl font-bold  border-2 rounded-md shadow-md shadow-emerald-200">
       <p>
