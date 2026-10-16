@@ -1,6 +1,6 @@
 export const Header = () => {
   return (
-    <header className="flex fixed z-50 top-0 left-0 w-screen justify-between p-5 border-b border-slate-100 shadow-xs">
+    <header className="flex fixed z-50 top-0 left-0 w-screen justify-between p-5 border-b border-slate-100 bg-white shadow-xs">
       <p className="font-semibold text-xl">
         Exercise - Movie Review Application
       </p>

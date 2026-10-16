@@ -1,83 +1,87 @@
-import movie1 from "../assets/images/visionquest.jpg";
-import movie2 from "../assets/images/loveofyourlife.jpg";
-import movie3 from "../assets/images/hope.jpg";
-import movie4 from "../assets/images/streetfighter.jpg";
-export const MainContent = () => {
+import { MovieCard } from "./MovieCard";
+
+export const MainContent = ({
+  content,
+  pop,
+  keyword,
+  status,
+  sort,
+  sortBy,
+}) => {
+  //console.log(content);
+  const changeHandler = (e) => {
+    // event handler for 'sort by' dropdown, calls sortBy to update state
+    sortBy(e.target.value);
+  };
+
   return (
     <>
-      <header className="mt-20 p-5 flex justify-between items-baseline">
+      <header className="z-1 mt-20 p-5 flex justify-between items-baseline">
         <div className="flex gap-4">
-          <h3>Popularity</h3>
+          <h3
+            className={
+              // conditional rendering for selected button
+              status === "now_playing"
+                ? "cursor-pointer text-sm bg-slate-300 px-2 py-1 rounded-md border"
+                : "cursor-pointer text-sm px-2 py-1"
+            }
+            onClick={() => keyword("now_playing")} // click handler - sets keyword state depending on which button selected
+          >
+            Now Playing
+          </h3>
+          <h3
+            className={
+              status === "top_rated"
+                ? "cursor-pointer text-sm bg-slate-300 px-2 py-1 rounded-md border"
+                : "cursor-pointer text-sm px-2 py-1"
+            }
+            onClick={() => keyword("top_rated")}
+          >
+            Top Rated
+          </h3>
+          <h3 className="text-sm px-2 py-1 rounded-md  ">
+            Filter by Popularity
+          </h3>
 
-          <ul className="flex items-center gap-3 font-semibold text-sm">
-            <li>8+</li>
-            <li>7+</li>
-            <li>6+</li>
+          <ul className=" flex items-center gap-3 font-semibold text-sm  ">
+            <li className="cursor-pointer" onClick={() => pop(8)}>
+              8+
+            </li>
+            <li className="cursor-pointer" onClick={() => pop(7)}>
+              7+
+            </li>
+            <li className="cursor-pointer" onClick={() => pop(6)}>
+              6+
+            </li>
           </ul>
         </div>
         <div className="flex items-center gap-2">
           <label htmlFor="sortBy" className="font-semibold">
             Sort By
           </label>
-          <select id="sortBy" className="p-2 border-b border-slate-200">
-            <option>Release Date</option>
-            <option>Rating</option>
+          <select // sort by dropdown
+            value={sort}
+            onChange={changeHandler}
+            id="sortBy"
+            className="p-2 border-b border-slate-200"
+          >
+            <option>Rating - Ascending</option>
+            <option>Rating - Descending</option>
+            <option>Release Date - Old to New</option>
+            <option>Release Date - New to Old</option>
           </select>
         </div>
       </header>
-      <main className="mb-100 mx-auto p-5 grid grid-cols-4">
-        <a
-          className="w-full p-5 flex flex-col gap-4 items-center text-sm"
-          href=""
-        >
-          <img src={movie1} alt="visionquest" className="rounded-md" />
-          <div className="flex flex-col items-center">
-            <h2 className="text-lg font-semibold">Movie Title</h2>
-            <div>
-              <p>Release Date:</p>
-              <p>Rating:</p>
-            </div>
-          </div>
-        </a>
-        <a
-          className="w-full p-5 flex flex-col gap-4 items-center text-sm"
-          href=""
-        >
-          <img src={movie2} alt="love of your life" className="rounded-md" />
-          <div className="flex flex-col items-center">
-            <h2 className="text-lg font-semibold">Movie Title</h2>
-            <div>
-              <p>Release Date</p>
-              <p>Rating</p>
-            </div>
-          </div>
-        </a>
-        <a
-          className="w-full p-5 flex flex-col gap-4 items-center text-sm"
-          href=""
-        >
-          <img src={movie3} alt="hope" className="rounded-md" />
-          <div className="flex flex-col items-center">
-            <h2 className="text-lg font-semibold">Movie Title</h2>
-            <div>
-              <p>Release Date</p>
-              <p>Rating</p>
-            </div>
-          </div>
-        </a>
-        <a
-          className="w-full p-5 flex flex-col gap-4 items-center text-sm"
-          href=""
-        >
-          <img src={movie4} alt="street fighter" className="rounded-md" />
-          <div className="flex flex-col items-center">
-            <h2 className="text-lg font-semibold">Movie Title</h2>
-            <div>
-              <p>Release Date</p>
-              <p>Rating</p>
-            </div>
-          </div>
-        </a>
+      <main className="z-1 mb-100 mx-auto p-5 grid grid-cols-5 gap-5">
+        {content.map((movie) => (
+          <MovieCard
+            key={movie.id}
+            img={movie.imagesrc}
+            title={movie.title}
+            releaseDate={movie.releaseDate}
+            rating={movie.rating}
+          />
+        ))}
       </main>
     </>
   );
