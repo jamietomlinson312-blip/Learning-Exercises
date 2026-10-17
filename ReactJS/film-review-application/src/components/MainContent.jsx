@@ -1,4 +1,5 @@
 import { MovieCard } from "./MovieCard";
+import { PageSelect } from "./PageSelect";
 
 export const MainContent = ({
   content,
@@ -7,8 +8,9 @@ export const MainContent = ({
   status,
   sort,
   sortBy,
+  page,
+  currentPage,
 }) => {
-  //console.log(content);
   const changeHandler = (e) => {
     // event handler for 'sort by' dropdown, calls sortBy to update state
     sortBy(e.target.value);
@@ -16,7 +18,7 @@ export const MainContent = ({
 
   return (
     <>
-      <header className="z-1 mt-20 p-5 flex justify-between items-baseline">
+      <header className="z-1 p-5 flex justify-between items-baseline">
         <div className="flex gap-4">
           <h3
             className={
@@ -55,7 +57,8 @@ export const MainContent = ({
             </li>
           </ul>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-5 text-sm">
+          <PageSelect page={page} currentPage={currentPage} />
           <label htmlFor="sortBy" className="font-semibold">
             Sort By
           </label>
@@ -72,7 +75,11 @@ export const MainContent = ({
           </select>
         </div>
       </header>
-      <main className="z-1 mb-100 mx-auto p-5 grid grid-cols-5 gap-5">
+
+      <main
+        id="main_content"
+        className="z-1 mb-10 mx-auto p-5 grid grid-cols-5 gap-5"
+      >
         {content.map((movie) => (
           <MovieCard
             key={movie.id}
@@ -83,6 +90,9 @@ export const MainContent = ({
           />
         ))}
       </main>
+      <nav className="flex gap-2 max-w-1/8 mx-auto mb-10 items-center justify-around text-sm font-light cursor-pointer">
+        <PageSelect page={page} currentPage={currentPage} />
+      </nav>
     </>
   );
 };

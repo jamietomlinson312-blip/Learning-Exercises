@@ -3,7 +3,7 @@ export const MovieCard = ({ img, title, releaseDate, rating }) => {
   return (
     <>
       <a
-        className="w-full mx-auto p-3 flex flex-col gap-2 items-start text-sm rounded-md bg-slate-100/50"
+        className="w-full mx-auto p-3 flex flex-col gap-2 items-start text-sm rounded-md shadow-sm"
         href=""
       >
         <img src={img} alt={title} className="rounded-md" />

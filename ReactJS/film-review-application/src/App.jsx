@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { MainContent } from "./components/MainContent";
+import { SearchBar } from "./components/SearchBar";
 import "./App.css";
 
 function App() {
@@ -20,18 +21,36 @@ function App() {
   const [pop, setPop] = useState(7); // state variables for popularity button, sorting, and keywords to fetch different lists from the API
   const [keyword, setKeyword] = useState("top_rated");
   const [sortBy, setSortBy] = useState("Rating - Ascending");
+  const [page, setPage] = useState(1);
+  const [titleSearch, setTitle] = useState("");
+  let pageParam = `&page=${page}`;
+  let titleParam = `&query=${titleSearch}`;
+  console.log(titleSearch, titleParam);
 
   const fetchMovies = async () => {
     // function for fetching API data
-    const fetchURL =
-      "https://api.themoviedb.org/3/movie/" + keyword + "?api_key=" + apiKey; // building the URL using the selected tab (keyword) and personal API key
+    let resultsArray;
+    let fetchURL;
+    if (titleSearch === "") {
+      console.log("if");
+      // building the URL using the selected parameters and personal API key}
+      fetchURL =
+        "https://api.themoviedb.org/3/movie/" +
+        keyword +
+        "?api_key=" +
+        apiKey +
+        pageParam;
+    } else
+      fetchURL =
+        "https://api.themoviedb.org/3/search/movie?api_key=" +
+        apiKey +
+        titleParam;
+    console.log(fetchURL);
+
     try {
       const result = await fetch(fetchURL);
-      if (!result.ok) {
-        throw new Error(`Response Status: ${result.status}`); // checking API promise result and returning error if .ok is false
-      }
       const data = await result.json(); // convert to array
-      const resultsArray = data["results"].map((movie) => ({
+      resultsArray = data["results"].map((movie) => ({
         // Map through the API results and build an array of values to be used for rendering
         id: movie.id,
         title: movie.title,
@@ -40,48 +59,54 @@ function App() {
         imagesrc: "http://image.tmdb.org/t/p/w500" + movie.poster_path,
         dateTemporal: Temporal.PlainDate.from(movie.release_date),
       }));
-
-      // Conditional statements to sort resultsArray by rating or release date, and calling setMovies to update state
-
-      if (sortBy === "Rating - Descending") {
-        setMovies(
-          resultsArray.sort(function (a, b) {
-            return b.rating - a.rating;
-          }),
-        );
-      } else if (sortBy === "Rating - Ascending") {
-        setMovies(
-          resultsArray.sort(function (a, b) {
-            return a.rating - b.rating;
-          }),
-        );
-      } else if (sortBy === "Release Date - Old to New") {
-        setMovies(
-          resultsArray.sort(function (a, b) {
-            return Temporal.PlainDate.compare(a.dateTemporal, b.dateTemporal); // comparing dates using the temporal date objects - returns -1, 0 or +1 which is used in .sort
-          }),
-        );
-      } else {
-        setMovies(
-          resultsArray.sort(function (a, b) {
-            return Temporal.PlainDate.compare(b.dateTemporal, a.dateTemporal);
-          }),
-        );
+      if (!result.ok) {
+        throw new Error(`Response Status: ${result.status}`); // checking API promise result and returning error if .ok is false
       }
     } catch (error) {
       console.error(`${error.name}: ${error.message}`); // error handling - logging to console
+    }
+
+    // Conditional statements to sort resultsArray by rating or release date, and calling setMovies to update state
+
+    if (sortBy === "Rating - Descending") {
+      setMovies(
+        resultsArray.sort(function (a, b) {
+          return b.rating - a.rating;
+        }),
+      );
+    } else if (sortBy === "Rating - Ascending") {
+      setMovies(
+        resultsArray.sort(function (a, b) {
+          return a.rating - b.rating;
+        }),
+      );
+    } else if (sortBy === "Release Date - Old to New") {
+      setMovies(
+        resultsArray.sort(function (a, b) {
+          return Temporal.PlainDate.compare(a.dateTemporal, b.dateTemporal); // comparing dates using the temporal date objects - returns -1, 0 or +1 which is used in .sort
+        }),
+      );
+    } else {
+      setMovies(
+        resultsArray.sort(function (a, b) {
+          return Temporal.PlainDate.compare(b.dateTemporal, a.dateTemporal);
+        }),
+      );
     }
   };
 
   useEffect(() => {
     // call fetchMovies whenever keyword or sortBy changes
     fetchMovies();
-  }, [keyword, sortBy]);
+  }, [keyword, titleSearch, page, sortBy]);
 
   return (
     <>
       <div className="font-montserrat">
         <Header />
+        <div className="z-1 p-5 mt-20 flex max-w-1/3  gap-4 items-baseline">
+          <SearchBar search={setTitle} />
+        </div>
         <MainContent
           content={movies}
           pop={setPop}
@@ -89,6 +114,8 @@ function App() {
           status={keyword}
           sortBy={setSortBy}
           sort={sortBy}
+          page={setPage}
+          currentPage={page}
         />
         <Footer />
       </div>
