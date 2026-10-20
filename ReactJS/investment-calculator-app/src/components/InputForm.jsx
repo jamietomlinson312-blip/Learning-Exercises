@@ -1,9 +1,31 @@
 import { ResetButton } from "./ResetButton";
+import { useState, useEffect } from "react";
 
 export const InputForm = ({ handleChange, userInput, reset }) => {
+  const [userError, setError] = useState("");
+
+  const errVal = 0;
+  // set of error messages for empty inputs
+  useEffect(() => {
+    switch (
+      errVal // set error message depending on user input
+    ) {
+      case userInput.initialInvestment:
+        setError("Initial investment should be greater than zero");
+        break;
+      case userInput.expectedReturn:
+        setError("Expected return should be greater than zero");
+        break;
+      default:
+        setError(""); // reset to empty string
+    }
+  }, [userInput]);
+
+  console.log(userError);
+
   return (
-    <div className="mt-30 w-full flex justify-center">
-      <form className="p-10 flex items-baseline justify-between shadow-md rounded-b-md">
+    <div className="mt-30 mx-auto flex flex-col">
+      <form className="p-10 flex flex-col gap-5 xl:flex-row xl:items-baseline xl:justify-between shadow-md rounded-b-md">
         <div className="flex flex-col gap-2 items-center">
           <label className="font-bold" htmlFor="initialInvestment">
             Initial Investment ($)
@@ -12,7 +34,11 @@ export const InputForm = ({ handleChange, userInput, reset }) => {
             required
             type="number"
             id="initialInvestment"
-            className="border rounded-sm bg-slate-100 max-w-8/10 p-1"
+            className={
+              userError === "Initial investment should be greater than zero"
+                ? "border border-red-800  rounded-sm bg-slate-100 max-w-8/10 p-1"
+                : "border rounded-sm bg-slate-100 max-w-8/10 p-1"
+            }
             value={userInput.initialInvestment}
             onChange={(e) => handleChange("initialInvestment", e.target.value)}
           />
@@ -38,11 +64,17 @@ export const InputForm = ({ handleChange, userInput, reset }) => {
             required
             type="number"
             id="expectedReturn"
-            className="border rounded-sm bg-slate-100 max-w-8/10 p-1"
+            className={
+              // Conditional rendering - if field is zero, gives red border
+              userError === "Expected return should be greater than zero"
+                ? "border border-red-800 rounded-sm bg-slate-100 max-w-8/10 p-1"
+                : "border rounded-sm bg-slate-100 max-w-8/10 p-1"
+            }
             value={userInput.expectedReturn}
             onChange={(e) => handleChange("expectedReturn", e.target.value)}
           />
         </div>
+
         <div className="flex flex-col gap-2 items-center">
           <label className="font-bold" htmlFor="duration">
             Duration (years)
@@ -56,10 +88,13 @@ export const InputForm = ({ handleChange, userInput, reset }) => {
             onChange={(e) => handleChange("duration", e.target.value)}
           />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="w-full flex flex-col gap-4 items-center">
           <ResetButton reset={reset} />
         </div>
       </form>
+      {userError && ( // conditional rendering of error message
+        <p className="mt-5 text-xs text-red-400 font-italic">{userError}</p>
+      )}
     </div>
   );
 };

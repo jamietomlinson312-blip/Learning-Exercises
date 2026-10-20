@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { OutputSummary } from "./OutputSummary";
 import { calculateInvestment } from "../util/calculateFunctions";
 
 export const OutputData = ({ userInput, output, setOutput }) => {
   useEffect(() => {
-    // hook to call setOutput whenever userInput variable changes
     setOutput(calculateInvestment(userInput));
   }, [userInput]);
-
   return (
     <>
-      <table className="my-20 w-full mx-auto ">
+      <table className="my-20 w-full mx-auto text-xs xl:text-base">
         <thead className="border-b p-2">
           <tr className="bg-slate-100 rounded-sm">
             <th className="p-2">Year</th>
