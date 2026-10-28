@@ -2,14 +2,14 @@ import { useState } from "react";
 
 export const SearchBar = ({ search }) => {
   const [field, setField] = useState("");
+
   const handleChange = (e) => {
     setField(e.target.value);
-    console.log(field.split(":"));
   };
-  console.log(field);
 
   const handleClick = () => {
-    search(field);
+    let newInput = field.replace(/ /g, "%20");
+    search(newInput);
   };
   return (
     <>

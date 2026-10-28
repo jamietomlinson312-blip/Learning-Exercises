@@ -29,7 +29,7 @@ function App() {
 
   const fetchMovies = async () => {
     // function for fetching API data
-    let resultsArray;
+
     let fetchURL;
     if (titleSearch === "") {
       console.log("if");
@@ -45,54 +45,56 @@ function App() {
         "https://api.themoviedb.org/3/search/movie?api_key=" +
         apiKey +
         titleParam;
-    console.log(fetchURL);
+    console.log(fetchURL, titleParam);
 
     try {
       const result = await fetch(fetchURL);
-      const data = await result.json(); // convert to array
-      resultsArray = data["results"].map((movie) => ({
-        // Map through the API results and build an array of values to be used for rendering
-        id: movie.id,
-        title: movie.title,
-        releaseDate: movie.release_date,
-        rating: movie.vote_average,
-        imagesrc: "http://image.tmdb.org/t/p/w500" + movie.poster_path,
-        dateTemporal: Temporal.PlainDate.from(movie.release_date),
-      }));
       if (!result.ok) {
         throw new Error(`Response Status: ${result.status}`); // checking API promise result and returning error if .ok is false
+      }
+      const data = await result.json(); // convert to JSON data type
+      console.log("data-results", data["results"]);
+      setMovies(
+        data["results"].map((movie) => ({
+          // Map through the API results and build an array of values to be used for rendering
+          id: movie.id,
+          title: movie.title,
+          releaseDate: movie.release_date,
+          rating: movie.vote_average,
+          imagesrc: "http://image.tmdb.org/t/p/w500" + movie.poster_path,
+          dateTemporal: Temporal.PlainDate.from(movie.release_date),
+        })),
+      );
+      if (sortBy === "Rating - Descending") {
+        setMovies(
+          resultsArray.sort(function (a, b) {
+            return b.rating - a.rating;
+          }),
+        );
+      } else if (sortBy === "Rating - Ascending") {
+        setMovies(
+          resultsArray.sort(function (a, b) {
+            return a.rating - b.rating;
+          }),
+        );
+      } else if (sortBy === "Release Date - Old to New") {
+        setMovies(
+          resultsArray.sort(function (a, b) {
+            return Temporal.PlainDate.compare(a.dateTemporal, b.dateTemporal); // comparing dates using the temporal date objects - returns -1, 0 or +1 which is used in .sort
+          }),
+        );
+      } else {
+        setMovies(
+          resultsArray.sort(function (a, b) {
+            return Temporal.PlainDate.compare(b.dateTemporal, a.dateTemporal);
+          }),
+        );
       }
     } catch (error) {
       console.error(`${error.name}: ${error.message}`); // error handling - logging to console
     }
 
     // Conditional statements to sort resultsArray by rating or release date, and calling setMovies to update state
-
-    if (sortBy === "Rating - Descending") {
-      setMovies(
-        resultsArray.sort(function (a, b) {
-          return b.rating - a.rating;
-        }),
-      );
-    } else if (sortBy === "Rating - Ascending") {
-      setMovies(
-        resultsArray.sort(function (a, b) {
-          return a.rating - b.rating;
-        }),
-      );
-    } else if (sortBy === "Release Date - Old to New") {
-      setMovies(
-        resultsArray.sort(function (a, b) {
-          return Temporal.PlainDate.compare(a.dateTemporal, b.dateTemporal); // comparing dates using the temporal date objects - returns -1, 0 or +1 which is used in .sort
-        }),
-      );
-    } else {
-      setMovies(
-        resultsArray.sort(function (a, b) {
-          return Temporal.PlainDate.compare(b.dateTemporal, a.dateTemporal);
-        }),
-      );
-    }
   };
 
   useEffect(() => {
